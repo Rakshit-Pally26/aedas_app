@@ -25,7 +25,6 @@ urlpatterns = [
     url(r'^upload/', views.upload, name='upload'),
     url(r'^contact/', views.ContactUs, name='contact'),
     url(r'^contactinfo/', views.ContactInfo, name='contactinfo'),
-    url(r'^slackmenu/', views.SlackMenu, name='slackmenu'),
     url(r'^documents/', views.document_list, name='document_list'),
     url(r'^documents_upload/', views.document_upload, name='document_upload'),
     url(r'^add_user/', views.AddUser, name='add_user'),
