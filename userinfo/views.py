@@ -3,8 +3,7 @@ from django.http import HttpResponse
 from .models import UserInformation, Document, Contact
 from django.core.files.storage import FileSystemStorage
 from .forms import DocumentForm
-import sys
-from slacker import Slacker
+
 # Create your views here.
 
 from django.views.generic import View
@@ -78,52 +77,9 @@ def ContactInfo(request):
     emailid= request.POST.get('emailid', False)
     subject= request.POST.get('subject', False)
     message= request.POST.get('message', False)
-    slack=Slacker('xoxb-1141578750229-1174022059907-BCHri8IkaVCIn3SDtxKOpiT2')
-    messages="integration with django web-application"
-    message_attachments= [
-        {
-            "fallback": "This does not work",
-            "color": "#3AA3E3",
-            "attachment_type": "default",
-            "callback_id": "xoxb-1141578750229-1174022059907-BCHri8IkaVCIn3SDtxKOpiT2",
-            "actions": [
-                {
-                    "name": "approveuser",
-                    "text": "Approve",
-                    "type": "button",
-                    "value": firstname,
-                },
-                {
-                    "name": "denyuser",
-                    "text": "Deny",
-                    "type": "button",
-                    "value": firstname,
-                }
-            ]
-        }    
-    ]
-    slack.chat.post_message('#aedas-message', "Approve User:\nUser: "+firstname+"\nEmail: "+emailid+"\nSubject: "+subject+" ?", attachments=message_attachments)
     user_contact= Contact(firstname=firstname, lastname=lastname, emailid=emailid, subject=subject, message=message)
     user_contact.save()
     return render(request, "contact.html")
-
-def SlackMenu(request):
-    jsonText= request.post.get("payload", "NO PAYLOAD")
-    jsondata= json.loads(jsonText)
-    slackToken= str(jsondata["token"])
-    print(slackToken)
-    if slackToken != "xoxp-1141578750229-1150234960580-1173898628535-cb87bf6bb91949033a639b9607fce637":
-        return
-    actionName= jsondata["actions"][0]["name"]
-    actionValue= jsondata["actions"][0]["value"]
-
-    if actionName == "approveuser":
-        return HttpResponse("user approved!")
-    
-    if actionName == "denyuser":
-        return HttpResponse("user denied!")
-    return HttpResponse("No Action! "+actionName)
-
 
 
 def AllUsers(request):
