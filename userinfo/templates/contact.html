@@ -1,0 +1,54 @@
+{% extends "header.html" %}
+{% block content %} 
+<div class="row">
+    <div class="col-lg-8 mb-5" >
+      <form action="/contactinfo/" method="post">
+            {% csrf_token %}
+            <div class="form-group row">
+            <div class="col-md-6 mb-4 mb-lg-0">
+                <input name="firstname" type="text" class="form-control" placeholder="First name">
+            </div>
+            <div class="col-md-6">
+                <input name="lastname" type="text" class="form-control" placeholder="Last name">
+            </div>
+            </div>
+
+            <div class="form-group row">
+            <div class="col-md-12">
+                <input name="emailid" type="text" class="form-control" placeholder="Email address">
+            </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-12">
+                <input name="subject" type="text" class="form-control" placeholder="Subject">
+                </div>
+            </div>
+
+            <div class="form-group row">
+            <div class="col-md-12">
+                <textarea name="message" class="form-control" placeholder="Write your message." cols="30" rows="10"></textarea>
+            </div>
+            </div>
+            <div class="form-group row">
+            <div class="col-md-6 mr-auto">
+                <input type="submit" class="btn btn-block btn-primary text-white py-3 px-5" value="Send Message">
+                <hr>
+                <p><a href="/documents_upload" class="btn btn-primary text-white px-5">Upload Documents</a></p>
+            </div>
+            </div>
+      </form>
+    </div>
+    <div class="col-lg-4 ml-auto">
+        <div class="bg-white p-3 p-md-5">
+          <h3 class="text-black mb-4">Contact Info</h3>
+          <ul class="list-unstyled footer-link">
+            <li class="d-block mb-3">
+              <span class="d-block text-black">Address:</span>
+              <span>240 McAdams Hall, Clemson University, Clemson, SC 29634-0303</span></li>
+            <li class="d-block mb-3"><span class="d-block text-black">Phone:</span><span>+1(864) 656-0681</span></li>
+          </ul>
+        </div>
+    </div>
+  </div>
+{% endblock %}
